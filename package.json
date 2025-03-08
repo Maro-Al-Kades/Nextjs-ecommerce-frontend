@@ -35,6 +35,7 @@
   "@heroui/spinner": "^2.2.12",
   "@heroui/switch": "^2.2.13",
   "@heroui/system": "2.4.10",
+  "@heroui/table": "^2.2.15",
   "@heroui/theme": "2.4.9",
   "@heroui/toast": "^2.0.5",
   "@iconify/react": "^5.2.0",
@@ -43,6 +44,7 @@
   "axios": "^1.8.1",
   "checkbox": "^0.0.1",
   "clsx": "2.1.1",
+  "date-fns": "^4.1.0",
   "embla-carousel-react": "^8.5.2",
   "framer-motion": "11.13.1",
   "intl-messageformat": "^10.5.0",
@@ -51,7 +53,8 @@
   "nextjs-toploader": "^3.7.15",
   "react": "18.3.1",
   "react-color": "^2.19.3",
-  "react-dom": "18.3.1"
+  "react-dom": "18.3.1",
+  "zod": "^3.24.2"
  },
  "devDependencies": {
   "@next/eslint-plugin-next": "15.0.4",

@@ -1,6 +1,40 @@
 "use server";
 
-export async function getBrands({ page = 1, limit = 10 }) {
+import { revalidatePath } from "next/cache";
+
+export interface Brand {
+  _id: string;
+  title: string;
+  slug: string;
+  image: string;
+  updatedAt: Date;
+}
+
+export async function getBrandsCount() {
+  try {
+    const url = new URL(`${process.env.API_URI}/brands/count`);
+
+    const res = await fetch(url, { cache: "no-store" });
+
+    if (!res.ok) throw new Error("Failed to fetch brands");
+
+    const brands = await res.json();
+
+    return brands;
+  } catch (error) {
+    console.error("Error fetching brands:", error);
+
+    return [];
+  }
+}
+
+export async function getBrands({
+  page,
+  limit,
+}: {
+  page: Number;
+  limit: Number;
+}) {
   try {
     const url = new URL(`${process.env.API_URI}/brands`);
 
@@ -18,5 +52,67 @@ export async function getBrands({ page = 1, limit = 10 }) {
     console.error("Error fetching products:", error);
 
     return [];
+  }
+}
+
+export async function createBrand(prevState: any, formData: FormData) {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/brands`, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    });
+
+    if (!res.ok) throw new Error("فشل في إضافة الماركة!");
+
+    revalidatePath("/admin/brands");
+
+    return { success: true, message: "تم إضافة الماركة بنجاح!" };
+  } catch (error) {
+    console.error("Error creating brand:", error);
+    return { success: false, message: "حدث خطأ أثناء إضافة الماركة!" };
+  }
+}
+
+export async function updateBrand(brandId: string, formData: FormData) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URI}/brands/${brandId}`,
+      {
+        method: "PUT",
+        body: formData,
+        headers: { Accept: "application/json" },
+      }
+    );
+
+    if (!res.ok) throw new Error("فشل في تحديث الماركة!");
+
+    revalidatePath("/admin/brands");
+
+    return { success: true, message: "تم تحديث الماركة بنجاح!" };
+  } catch (error) {
+    console.error("Error updating brand:", error);
+    return { success: false, message: "حدث خطأ أثناء تحديث الماركة!" };
+  }
+}
+
+export async function deleteBrand(brandId: string) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URI}/brands/${brandId}`,
+      {
+        method: "DELETE",
+        headers: { Accept: "application/json" },
+      }
+    );
+
+    if (!res.ok) throw new Error("فشل في حذف الماركة!");
+
+    revalidatePath("/admin/brands");
+
+    return { success: true, message: "تم حذف الماركة بنجاح!" };
+  } catch (error) {
+    console.error("Error deleting brand:", error);
+    return { success: false, message: "حدث خطأ أثناء حذف الماركة!" };
   }
 }

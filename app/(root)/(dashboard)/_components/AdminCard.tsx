@@ -2,8 +2,24 @@ import { Button } from "@heroui/button";
 import { Card } from "@heroui/card";
 import { Image } from "@heroui/image";
 import { Icon } from "@iconify/react";
+import { format } from "date-fns";
+import { ar } from "date-fns/locale";
 
-const AdminCard = ({ title, image }: { title: String; image: String }) => {
+const AdminCard = ({
+  title,
+  image,
+  lastUpdate,
+}: {
+  title: String;
+  image: String;
+  lastUpdate: Date;
+}) => {
+  const formattedDateTime = format(
+    new Date(lastUpdate),
+    "EEEE، d MMMM yyyy - hh:mm:ss a",
+    { locale: ar }
+  );
+
   return (
     <Card className="p-4 flex flex-row justify-between items-start">
       <div className="flex flex-row items-start gap-6 justify-start">
@@ -18,7 +34,7 @@ const AdminCard = ({ title, image }: { title: String; image: String }) => {
           </p>
           <p className="text-xl">
             <span className="text-primary font-semibold"> اخر تحديث: </span>{" "}
-            1/1/2025
+            {formattedDateTime}
           </p>
         </div>
       </div>

@@ -12,7 +12,7 @@ import {
 } from "@heroui/modal";
 import { Icon } from "@iconify/react";
 import React from "react";
-import { ImageUpload } from "../ImageUpload";
+import ImageUpload from "../ImageUpload";
 
 const AddAdModal = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
