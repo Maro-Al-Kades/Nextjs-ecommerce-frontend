@@ -1,44 +1,25 @@
-import PaginationComp from "@/components/PaginationComp";
-import AdminCard from "../../_components/AdminCard";
+import {
+  getCategories,
+  getCategoriesCount,
+} from "@/actions/categories.actions";
 import ManageHead from "../../_components/ManageHead";
-import AddCategoryModal from "../../_components/modals/AddCategoryModal";
+import CategoriesTable from "./_Components/CategoriesTable";
+import AddCategoryModal from "./_Components/AddCategoryModal";
 
-const AddCategory = () => {
+const AddCategory = async () => {
+  const categoriesCount = await getCategoriesCount();
+  const categories = await getCategories({});
   return (
     <section className="flex flex-col items-start justify-start gap-6 w-full">
       <div className="flex flex-row items-center justify-between w-full">
-        <ManageHead text={`ادارة التصنيفات`} number={12} />
+        <ManageHead text={`ادارة التصنيفات`} number={categoriesCount.count} />
         <AddCategoryModal />
       </div>
       <div className="flex flex-col gap-3 w-full">
-        <AdminCard
-          title={`احدث الاجهزة الالكترونية لعام 2024`}
-          image={`https://heroui.com/images/hero-card-complete.jpeg`}
+        <CategoriesTable
+          categories={categories}
+          categoriesCount={categoriesCount}
         />
-        <AdminCard
-          title={`احدث الاجهزة الالكترونية لعام 2024`}
-          image={`https://heroui.com/images/hero-card-complete.jpeg`}
-        />
-        <AdminCard
-          title={`احدث الاجهزة الالكترونية لعام 2024`}
-          image={`https://heroui.com/images/hero-card-complete.jpeg`}
-        />
-        <AdminCard
-          title={`احدث الاجهزة الالكترونية لعام 2024`}
-          image={`https://heroui.com/images/hero-card-complete.jpeg`}
-        />
-        <AdminCard
-          title={`احدث الاجهزة الالكترونية لعام 2024`}
-          image={`https://heroui.com/images/hero-card-complete.jpeg`}
-        />
-        <AdminCard
-          title={`احدث الاجهزة الالكترونية لعام 2024`}
-          image={`https://heroui.com/images/hero-card-complete.jpeg`}
-        />
-      </div>
-
-      <div className="flex items-center justify-center w-full">
-        <PaginationComp />
       </div>
     </section>
   );

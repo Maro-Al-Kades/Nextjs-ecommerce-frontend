@@ -12,9 +12,9 @@ import {
 } from "@heroui/modal";
 import { Icon } from "@iconify/react";
 import React from "react";
-import ImageUpload from "../ImageUpload";
+import ImageUpload from "../../../_components/ImageUpload";
 
-const AddSubCategoryModal = () => {
+const AddBrandModal = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -26,7 +26,7 @@ const AddSubCategoryModal = () => {
         }
         onPress={onOpen}
       >
-        اضافة تصنيف فرعي جديد
+        اضافة ماركة جديدة
       </Button>
 
       <Modal
@@ -40,7 +40,7 @@ const AddSubCategoryModal = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                اضافة تصنيف فرعي جديد
+                اضافة ماركة جديدة
               </ModalHeader>
               <ModalBody>
                 <ImageUpload />
@@ -52,8 +52,8 @@ const AddSubCategoryModal = () => {
                       height="20"
                     />
                   }
-                  label="اسم التصنيف فرعي"
-                  placeholder="اكتب اسم التصنيف الفرعي هنا..."
+                  label="اسم الماركة"
+                  placeholder="اكتب اسم الماركة هنا..."
                   variant="bordered"
                   color="primary"
                 />
@@ -74,4 +74,4 @@ const AddSubCategoryModal = () => {
   );
 };
 
-export default AddSubCategoryModal;
+export default AddBrandModal;

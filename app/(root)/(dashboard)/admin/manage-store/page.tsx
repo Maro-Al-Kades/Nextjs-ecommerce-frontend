@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import ManageHead from "../../_components/ManageHead";
 import { Input } from "@heroui/input";
 import { Switch } from "@heroui/switch";
-import { ImageUpload } from "../../_components/ImageUpload";
+import ImageUpload from "../../_components/ImageUpload";
 
 const ManageStore = () => {
   return (

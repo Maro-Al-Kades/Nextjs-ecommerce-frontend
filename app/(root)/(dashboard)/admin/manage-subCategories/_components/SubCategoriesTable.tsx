@@ -13,25 +13,26 @@ import { Pagination } from "@heroui/pagination";
 import { Image } from "@heroui/image";
 import { Icon } from "@iconify/react";
 import { Button } from "@heroui/button";
-import { Brand } from "@/types";
+import { subCategory } from "@/types";
+import { Link } from "@heroui/link";
 
-const BrandsTable = ({
-  brands,
-  brandsCount,
+const SubCategoriesTable = ({
+  subCategories,
+  subCategoriesCount,
 }: {
-  brands: Brand[];
-  brandsCount: { count: number };
+  subCategories: subCategory[];
+  subCategoriesCount: { count: number };
 }) => {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
 
-  const pages = Math.ceil(brandsCount.count / rowsPerPage);
+  const pages = Math.ceil(subCategoriesCount.count / rowsPerPage);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    return brands.slice(start, end);
-  }, [page, brands]);
+    return subCategories.slice(start, end);
+  }, [page, subCategories]);
 
   return (
     <div>
@@ -57,38 +58,30 @@ const BrandsTable = ({
         }}
       >
         <TableHeader className="w-full bg-primary">
-          <TableColumn key="image">الصورة</TableColumn>
           <TableColumn key="title">العنوان</TableColumn>
+          <TableColumn key="image">التصنيف الرئيسي</TableColumn>
           <TableColumn key="updatedAt">تحديثات</TableColumn>
           <TableColumn key="actions">تعديلات</TableColumn>
         </TableHeader>
         <TableBody items={items}>
-          {items.map((brand) => (
-            <TableRow key={brand._id}>
-              <TableCell>
-                <Image src={brand.image} width={100} />
-              </TableCell>
+          {items.map((subCategory) => (
+            <TableRow key={subCategory._id}>
               <TableCell className="text-lg text-primary">
-                {brand.title}
+                {subCategory.title}
+              </TableCell>
+              <TableCell>
+                <Link href={`/admin/manage-categories`}>
+                  {subCategory?.category?.title}
+                </Link>
               </TableCell>
               <TableCell className="text-lg">
-                {new Date(brand.updatedAt).toLocaleDateString("ar-EG")}
+                {new Date(subCategory.updatedAt).toLocaleDateString("ar-EG")}
               </TableCell>
-              <TableCell className="">
-                <Button
-                  isIconOnly
-                  color="danger"
-                  variant="flat"
-                  className="mr-1"
-                >
+              <TableCell className="flex gap-1 items-end">
+                <Button isIconOnly color="danger" variant="flat">
                   <Icon icon="hugeicons:delete-03" width="20" height="20" />
                 </Button>
-                <Button
-                  isIconOnly
-                  color="warning"
-                  variant="flat"
-                  className="mr-1"
-                >
+                <Button isIconOnly color="warning" variant="flat">
                   <Icon
                     icon="hugeicons:pencil-edit-02"
                     width="20"
@@ -104,4 +97,4 @@ const BrandsTable = ({
   );
 };
 
-export default BrandsTable;
+export default SubCategoriesTable;

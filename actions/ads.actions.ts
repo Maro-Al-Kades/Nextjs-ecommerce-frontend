@@ -1,5 +1,26 @@
 "use server";
 
+/**
+ @desc Get Ads Count 
+*/
+export async function getAdsCount() {
+  try {
+    const url = new URL(`${process.env.API_URI}/ads/count`);
+
+    const res = await fetch(url, { cache: "no-store" });
+
+    if (!res.ok) throw new Error("Failed to fetch ads");
+
+    const ads = await res.json();
+
+    return ads;
+  } catch (error) {
+    console.error("Error fetching ads:", error);
+
+    return [];
+  }
+}
+
 export async function getAds({ page = 1, limit = 10 }) {
   try {
     const url = new URL(`${process.env.API_URI}/ads`);

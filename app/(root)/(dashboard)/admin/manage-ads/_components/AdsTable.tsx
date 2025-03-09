@@ -13,25 +13,25 @@ import { Pagination } from "@heroui/pagination";
 import { Image } from "@heroui/image";
 import { Icon } from "@iconify/react";
 import { Button } from "@heroui/button";
-import { Brand } from "@/types";
+import { Ad, Brand } from "@/types";
 
-const BrandsTable = ({
-  brands,
-  brandsCount,
+const AdsTable = ({
+  ads,
+  adsCount,
 }: {
-  brands: Brand[];
-  brandsCount: { count: number };
+  ads: Ad[];
+  adsCount: { count: number };
 }) => {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
 
-  const pages = Math.ceil(brandsCount.count / rowsPerPage);
+  const pages = Math.ceil(adsCount.count / rowsPerPage);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    return brands.slice(start, end);
-  }, [page, brands]);
+    return ads.slice(start, end);
+  }, [page, ads]);
 
   return (
     <div>
@@ -56,17 +56,28 @@ const BrandsTable = ({
           wrapper: " w-full",
         }}
       >
-        <TableHeader className="w-full bg-primary">
-          <TableColumn key="image">الصورة</TableColumn>
-          <TableColumn key="title">العنوان</TableColumn>
-          <TableColumn key="updatedAt">تحديثات</TableColumn>
-          <TableColumn key="actions">تعديلات</TableColumn>
+        <TableHeader className="w-full text-primary">
+          <TableColumn key="image" className="text-primary">
+            الصورة
+          </TableColumn>
+          <TableColumn key="title" className="text-primary">
+            العنوان
+          </TableColumn>
+          <TableColumn key="updatedAt" className="text-primary">
+            اخر تحديث
+          </TableColumn>
+          <TableColumn key="actions" className="text-center text-primary">
+            تعديلات
+          </TableColumn>
         </TableHeader>
         <TableBody items={items}>
           {items.map((brand) => (
             <TableRow key={brand._id}>
               <TableCell>
-                <Image src={brand.image} width={100} />
+                <Image
+                  src={`http://localhost:8080/ads/${brand.image}`}
+                  width={100}
+                />
               </TableCell>
               <TableCell className="text-lg text-primary">
                 {brand.title}
@@ -76,18 +87,18 @@ const BrandsTable = ({
               </TableCell>
               <TableCell className="">
                 <Button
+                  className="mr-1"
                   isIconOnly
                   color="danger"
                   variant="flat"
-                  className="mr-1"
                 >
                   <Icon icon="hugeicons:delete-03" width="20" height="20" />
                 </Button>
                 <Button
+                  className="mr-1"
                   isIconOnly
                   color="warning"
                   variant="flat"
-                  className="mr-1"
                 >
                   <Icon
                     icon="hugeicons:pencil-edit-02"
@@ -104,4 +115,4 @@ const BrandsTable = ({
   );
 };
 
-export default BrandsTable;
+export default AdsTable;

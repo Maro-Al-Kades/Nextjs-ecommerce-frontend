@@ -13,25 +13,25 @@ import { Pagination } from "@heroui/pagination";
 import { Image } from "@heroui/image";
 import { Icon } from "@iconify/react";
 import { Button } from "@heroui/button";
-import { Brand } from "@/types";
+import { Category } from "@/types";
 
-const BrandsTable = ({
-  brands,
-  brandsCount,
+const CategoriesTable = ({
+  categories,
+  categoriesCount,
 }: {
-  brands: Brand[];
-  brandsCount: { count: number };
+  categories: Category[];
+  categoriesCount: { count: number };
 }) => {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 4;
 
-  const pages = Math.ceil(brandsCount.count / rowsPerPage);
+  const pages = Math.ceil(categoriesCount.count / rowsPerPage);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    return brands.slice(start, end);
-  }, [page, brands]);
+    return categories.slice(start, end);
+  }, [page, categories]);
 
   return (
     <div>
@@ -74,21 +74,11 @@ const BrandsTable = ({
               <TableCell className="text-lg">
                 {new Date(brand.updatedAt).toLocaleDateString("ar-EG")}
               </TableCell>
-              <TableCell className="">
-                <Button
-                  isIconOnly
-                  color="danger"
-                  variant="flat"
-                  className="mr-1"
-                >
+              <TableCell className="flex gap-1 items-end">
+                <Button isIconOnly color="danger" variant="flat">
                   <Icon icon="hugeicons:delete-03" width="20" height="20" />
                 </Button>
-                <Button
-                  isIconOnly
-                  color="warning"
-                  variant="flat"
-                  className="mr-1"
-                >
+                <Button isIconOnly color="warning" variant="flat">
                   <Icon
                     icon="hugeicons:pencil-edit-02"
                     width="20"
@@ -104,4 +94,4 @@ const BrandsTable = ({
   );
 };
 
-export default BrandsTable;
+export default CategoriesTable;

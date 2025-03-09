@@ -14,10 +14,10 @@ import { useFormStatus } from "react-dom";
 import { addToast } from "@heroui/toast";
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
-import { createBrand } from "@/actions/brands.actions";
-import ImageUpload from "../ImageUpload";
+import ImageUpload from "../../../_components/ImageUpload";
+import { createCover } from "@/actions/covers.actions";
 
-const AddBrandModal = () => {
+const AddCoverModal = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [state, setState] = useState<any>(null);
@@ -38,14 +38,20 @@ const AddBrandModal = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("Submitting form...");
 
     const formData = new FormData(e.currentTarget);
 
     if (imageFile) {
+      console.log("Adding image file:", imageFile);
       formData.append("image", imageFile);
     }
 
-    const response = await createBrand(null, formData);
+    console.log("Form Data:", Array.from(formData.entries()));
+
+    const response = await createCover(null, formData);
+    console.log("Server Response:", response);
+
     setState(response);
     if (response.success) {
       onOpenChange();
@@ -56,12 +62,10 @@ const AddBrandModal = () => {
     <div>
       <Button
         color="primary"
-        endContent={
-          <Icon icon="hugeicons:add-circle-half-dot" width="20" height="20" />
-        }
+        endContent={<Icon icon="hugeicons:image-01" width="20" height="20" />}
         onPress={onOpen}
       >
-        اضافة ماركة جديدة
+        اضافة غلاف جديد
       </Button>
 
       <Modal
@@ -75,7 +79,7 @@ const AddBrandModal = () => {
           {(onClose) => (
             <form onSubmit={handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                اضافة ماركة جديدة
+                اضافة غلاف جديد
               </ModalHeader>
               <ModalBody>
                 <div className="flex flex-col gap-4">
@@ -89,8 +93,8 @@ const AddBrandModal = () => {
                         height="20"
                       />
                     }
-                    label="اسم الماركة"
-                    placeholder="اكتب اسم الماركة هنا..."
+                    label="اسم الغلاف"
+                    placeholder="اكتب اسم الغلاف هنا..."
                     variant="bordered"
                     color="primary"
                     name="title"
@@ -125,4 +129,4 @@ const SubmitButton = () => {
   );
 };
 
-export default AddBrandModal;
+export default AddCoverModal;

@@ -2,14 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 
-export interface Brand {
-  _id: string;
-  title: string;
-  slug: string;
-  image: string;
-  updatedAt: Date;
-}
-
+/**
+ @desc Get Brands Count 
+*/
 export async function getBrandsCount() {
   try {
     const url = new URL(`${process.env.API_URI}/brands/count`);
@@ -28,6 +23,9 @@ export async function getBrandsCount() {
   }
 }
 
+/**
+ @desc Get All Brands 
+*/
 export async function getBrands({
   page,
   limit,
@@ -55,6 +53,9 @@ export async function getBrands({
   }
 }
 
+/**
+ @desc Create New Brand 
+*/
 export async function createBrand(prevState: any, formData: FormData) {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/brands`, {
@@ -74,6 +75,9 @@ export async function createBrand(prevState: any, formData: FormData) {
   }
 }
 
+/**
+ @desc Update specific Brand 
+*/
 export async function updateBrand(brandId: string, formData: FormData) {
   try {
     const res = await fetch(
@@ -96,6 +100,9 @@ export async function updateBrand(brandId: string, formData: FormData) {
   }
 }
 
+/**
+ @desc Delete Specific Brand 
+*/
 export async function deleteBrand(brandId: string) {
   try {
     const res = await fetch(
