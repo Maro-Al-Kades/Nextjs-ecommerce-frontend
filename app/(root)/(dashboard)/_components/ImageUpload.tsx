@@ -3,20 +3,25 @@
 import { Button } from "@heroui/button";
 import { Card, CardBody } from "@heroui/card";
 import { Icon } from "@iconify/react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const ImageUpload = ({
   onChange,
+  existingImage = "", // ✅ استلام الصورة القديمة
 }: {
   onChange?: (file: File | null) => void;
+  existingImage?: string;
 }) => {
-  const [preview, setPreview] = useState<string | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
+  const [preview, setPreview] = useState<string | null>(existingImage);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setPreview(existingImage); // ✅ تحديث الصورة عند تحميل المكون
+  }, [existingImage]);
 
   const handleFileChange = (file: File | null) => {
     if (!file) {
-      setPreview(null);
+      setPreview(existingImage); // ✅ احتفاظ بالصورة الأصلية إذا لم يتم اختيار صورة جديدة
       onChange?.(null);
       return;
     }
@@ -34,7 +39,7 @@ const ImageUpload = ({
   };
 
   const handleBrowseClick = () => {
-    inputRef.current?.click(); // ✅ اجعل زرار رفع الصورة يفتح اختيار الملف
+    inputRef.current?.click();
   };
 
   const handleRemove = () => {
@@ -58,7 +63,7 @@ const ImageUpload = ({
       {!preview ? (
         <Card
           className="border-2 border-dashed transition-colors w-full cursor-pointer border-gray-300 hover:border-primary"
-          onClick={handleBrowseClick} // ✅ السماح بفتح اختيار الملفات عند الضغط
+          onClick={handleBrowseClick}
         >
           <CardBody className="flex flex-col items-center justify-center gap-4 py-8">
             <div className="rounded-full bg-primary/10 p-4">
@@ -67,13 +72,11 @@ const ImageUpload = ({
                 className="h-8 w-8 text-primary"
               />
             </div>
-            <div className="text-center">
-              <p className="text-gray-700">
-                <span className="font-semibold">اضغط لرفع الصور</span> أو اسحب
-                الصورة هنا
-              </p>
-              <p className="text-sm text-gray-500">JPG, PNG, WEBP (Max 5MB)</p>
-            </div>
+            <p className="text-gray-700">
+              <span className="font-semibold">اضغط لرفع صورة</span> أو اسحبها
+              هنا
+            </p>
+            <p className="text-sm text-gray-500">JPG, PNG, WEBP (Max 5MB)</p>
             <Button variant="bordered" onClick={handleBrowseClick}>
               <Icon icon="hugeicons:image-upload" className="mr-2" />
               رفع صورة من الجهاز

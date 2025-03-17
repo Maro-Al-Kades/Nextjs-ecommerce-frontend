@@ -14,6 +14,7 @@ import { Image } from "@heroui/image";
 import { Icon } from "@iconify/react";
 import { Button } from "@heroui/button";
 import { Brand } from "@/types";
+import { Chip } from "@heroui/chip";
 
 const BrandsTable = ({
   brands,
@@ -57,10 +58,18 @@ const BrandsTable = ({
         }}
       >
         <TableHeader className="w-full bg-primary">
-          <TableColumn key="image">الصورة</TableColumn>
-          <TableColumn key="title">العنوان</TableColumn>
-          <TableColumn key="updatedAt">تحديثات</TableColumn>
-          <TableColumn key="actions">تعديلات</TableColumn>
+          <TableColumn key="image" className="text-primary">
+            الصورة
+          </TableColumn>
+          <TableColumn key="title" className="text-primary">
+            العنوان
+          </TableColumn>
+          <TableColumn key="updatedAt" className="text-primary">
+            تحديثات
+          </TableColumn>
+          <TableColumn key="actions" className="text-primary">
+            تعديلات
+          </TableColumn>
         </TableHeader>
         <TableBody items={items}>
           {items.map((brand) => (
@@ -71,8 +80,10 @@ const BrandsTable = ({
               <TableCell className="text-lg text-primary">
                 {brand.title}
               </TableCell>
-              <TableCell className="text-lg">
-                {new Date(brand.updatedAt).toLocaleDateString("ar-EG")}
+              <TableCell>
+                <Chip size="lg" variant="solid" color="default">
+                  {new Date(brand.updatedAt).toLocaleDateString("en-EG")}
+                </Chip>
               </TableCell>
               <TableCell className="">
                 <Button

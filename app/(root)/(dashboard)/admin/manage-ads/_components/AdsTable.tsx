@@ -13,7 +13,8 @@ import { Pagination } from "@heroui/pagination";
 import { Image } from "@heroui/image";
 import { Icon } from "@iconify/react";
 import { Button } from "@heroui/button";
-import { Ad, Brand } from "@/types";
+import { Ad } from "@/types";
+import { Chip } from "@heroui/chip";
 
 const AdsTable = ({
   ads,
@@ -71,19 +72,19 @@ const AdsTable = ({
           </TableColumn>
         </TableHeader>
         <TableBody items={items}>
-          {items.map((brand) => (
-            <TableRow key={brand._id}>
+          {items.map((Ad) => (
+            <TableRow key={Ad._id}>
               <TableCell>
                 <Image
-                  src={`http://localhost:8080/ads/${brand.image}`}
+                  src={`http://localhost:8080/ads/${Ad.image}`}
                   width={100}
                 />
               </TableCell>
-              <TableCell className="text-lg text-primary">
-                {brand.title}
-              </TableCell>
-              <TableCell className="text-lg">
-                {new Date(brand.updatedAt).toLocaleDateString("ar-EG")}
+              <TableCell className="text-lg text-primary">{Ad.title}</TableCell>
+              <TableCell>
+                <Chip size="lg" variant="solid" color="default">
+                  {new Date(Ad.updatedAt).toLocaleDateString("en-EG")}
+                </Chip>
               </TableCell>
               <TableCell className="">
                 <Button

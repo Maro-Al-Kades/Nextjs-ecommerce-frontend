@@ -89,6 +89,7 @@ const UsersTable = ({
               <TableCell>
                 <Avatar
                   isBordered
+                  color="primary"
                   size="md"
                   src={
                     user.profileImg

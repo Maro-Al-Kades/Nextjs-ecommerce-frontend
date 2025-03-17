@@ -15,6 +15,7 @@ import { Icon } from "@iconify/react";
 import { Button } from "@heroui/button";
 import { Product } from "@/types";
 import { Link } from "@heroui/link";
+import { Chip } from "@heroui/chip";
 
 const ProductsTable = ({
   products,
@@ -107,9 +108,14 @@ const ProductsTable = ({
               </TableCell>
               <TableCell className="text-md">{product.quantity}</TableCell>
               <TableCell className="text-md">
-                <Link href="/admin/manage-categories">
+                <Chip
+                  color="primary"
+                  variant="flat"
+                  as={Link}
+                  href={`/admin/manage-categories`}
+                >
                   {product?.category?.title}
-                </Link>
+                </Chip>
               </TableCell>
               <TableCell className="text-md">{product?.brand?.title}</TableCell>
               <TableCell className="text-md">
@@ -118,8 +124,10 @@ const ProductsTable = ({
               <TableCell className="text-md">
                 {product?.ratingsQuantity}
               </TableCell>
-              <TableCell className="text-md">
-                {new Date(product.updatedAt).toLocaleDateString("ar-EG")}
+              <TableCell>
+                <Chip size="md" variant="solid" color="default">
+                  {new Date(product.updatedAt).toLocaleDateString("en-EG")}
+                </Chip>
               </TableCell>
               <TableCell className="">
                 <Button

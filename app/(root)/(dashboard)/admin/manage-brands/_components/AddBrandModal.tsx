@@ -21,9 +21,7 @@ const AddBrandModal = () => {
     <div>
       <Button
         color="primary"
-        endContent={
-          <Icon icon="hugeicons:add-circle-half-dot" width="20" height="20" />
-        }
+        endContent={<Icon icon="hugeicons:brandfetch" width="20" height="20" />}
         onPress={onOpen}
       >
         اضافة ماركة جديدة

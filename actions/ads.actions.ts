@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 /**
  @desc Get Ads Count 
 */
@@ -39,5 +41,27 @@ export async function getAds({ page = 1, limit = 10 }) {
     console.error("Error fetching ads:", error);
 
     return [];
+  }
+}
+
+/**
+ @desc Create New Brand 
+*/
+export async function createAd(prevState: any, formData: FormData) {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/ads`, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    });
+
+    if (!res.ok) throw new Error("فشل في إضافة الاعلان!");
+
+    revalidatePath("/admin/manage-ads");
+
+    return { success: true, message: "تم إضافة الاعلان بنجاح!" };
+  } catch (error) {
+    console.error("Error creating brand:", error);
+    return { success: false, message: "حدث خطأ أثناء إضافة الاعلان!" };
   }
 }

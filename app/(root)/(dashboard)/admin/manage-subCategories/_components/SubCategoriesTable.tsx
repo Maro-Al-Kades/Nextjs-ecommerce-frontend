@@ -15,6 +15,7 @@ import { Icon } from "@iconify/react";
 import { Button } from "@heroui/button";
 import { subCategory } from "@/types";
 import { Link } from "@heroui/link";
+import { Chip } from "@heroui/chip";
 
 const SubCategoriesTable = ({
   subCategories,
@@ -58,10 +59,18 @@ const SubCategoriesTable = ({
         }}
       >
         <TableHeader className="w-full bg-primary">
-          <TableColumn key="title">العنوان</TableColumn>
-          <TableColumn key="image">التصنيف الرئيسي</TableColumn>
-          <TableColumn key="updatedAt">تحديثات</TableColumn>
-          <TableColumn key="actions">تعديلات</TableColumn>
+          <TableColumn key="title" className="text-primary">
+            العنوان
+          </TableColumn>
+          <TableColumn key="image" className="text-primary">
+            التصنيف الرئيسي
+          </TableColumn>
+          <TableColumn key="updatedAt" className="text-primary">
+            تحديثات
+          </TableColumn>
+          <TableColumn key="actions" className="text-primary">
+            تعديلات
+          </TableColumn>
         </TableHeader>
         <TableBody items={items}>
           {items.map((subCategory) => (
@@ -74,14 +83,26 @@ const SubCategoriesTable = ({
                   {subCategory?.category?.title}
                 </Link>
               </TableCell>
-              <TableCell className="text-lg">
-                {new Date(subCategory.updatedAt).toLocaleDateString("ar-EG")}
+              <TableCell>
+                <Chip size="lg" variant="solid" color="default">
+                  {new Date(subCategory.updatedAt).toLocaleDateString("en-EG")}
+                </Chip>
               </TableCell>
-              <TableCell className="flex gap-1 items-end">
-                <Button isIconOnly color="danger" variant="flat">
+              <TableCell>
+                <Button
+                  className="mr-1"
+                  isIconOnly
+                  color="danger"
+                  variant="flat"
+                >
                   <Icon icon="hugeicons:delete-03" width="20" height="20" />
                 </Button>
-                <Button isIconOnly color="warning" variant="flat">
+                <Button
+                  className="mr-1"
+                  isIconOnly
+                  color="warning"
+                  variant="flat"
+                >
                   <Icon
                     icon="hugeicons:pencil-edit-02"
                     width="20"
